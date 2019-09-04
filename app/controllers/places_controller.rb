@@ -1,5 +1,5 @@
 class PlacesController < ApplicationController
-
+  before_action :authenticate_user!, only: [:new,:create]
   def index
     @pagy, @places = pagy(Place.all)
   end
@@ -9,7 +9,7 @@ class PlacesController < ApplicationController
   end
 
   def create
-    PLace.create(place_parmas)
+    current_user.places.create(place_params)
     redirect_to root_path
   end
 
