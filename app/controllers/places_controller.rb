@@ -4,10 +4,6 @@ class PlacesController < ApplicationController
     @pagy, @places = pagy(Place.all)
   end
 
-  def new
-    @place = Place.new
-  end
-
   def create
     @place = current_user.places.create(place_params)
     if @place.valid?
@@ -20,6 +16,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find(params[:id])
     @comment = Comment.new
+    @photo = Photo.new
   end
 
   def edit
@@ -52,10 +49,13 @@ class PlacesController < ApplicationController
     redirect_to root_path
   end
 
+
+  
   private
 
   def place_params
     params.require(:place).permit(:name, :description, :address)
   end 
+
 
 end
